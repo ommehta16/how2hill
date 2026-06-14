@@ -1,0 +1,201 @@
+:root {
+  --text: #222;
+  --text-light: #666;
+  --bg: #ccc;
+  --bright: #eee;
+  --font: "Inter", Verdana, Geneva, Tahoma, sans-serif;
+  --hover-bg: #fff8;
+  --link-color: oklch(0.6154 0.168 260.44);
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  scroll-snap-type: y mandatory;
+
+  scroll-behavior: smooth;
+  font-size:20px;
+  /* @media (max-width: 1024px) {
+    font-size: 20px;
+  } */
+}
+
+input, button {
+  font-family: var(--font);
+  color: var(--text);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size:20px;
+}
+
+body {
+  margin: 0;
+}
+
+section {
+  max-width:80ch;
+  margin-inline: auto;
+  height: calc(100vh);
+  border-bottom: 0.25rem solid var(--text);
+  box-sizing: border-box;
+  padding:2rem;
+
+  scroll-snap-align: start;
+}
+
+h1 {
+  margin:0;
+  margin-block-end:1rem;
+}
+
+section.top {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+
+.hero h1 {
+  font-size:8vh;
+  letter-spacing:0.25ch;
+  margin:0;
+}
+
+.hero h1.secret {
+  font-size: 10vh;
+  width:100%;
+  text-align: center;
+  font-weight: 900;
+  /* margin-top:-0.5rem; */
+}
+
+div.top-wrapper {
+  background:var(--text);
+  color: var(--bright);
+}
+
+a.reasons-fancy {
+  color: unset;
+}
+
+*[data-title]:hover {
+  cursor:help;
+  text-decoration: underline dotted var(--link-color) 3px;
+}
+
+*[data-title]:hover::after {
+  content: attr(data-title);
+
+  color:var(--text);
+  position: absolute;
+  background: var(--hover-bg);
+  backdrop-filter: blur(0.1rem);
+  border-radius:0.6rem;
+  transform: translateY(-0.25rem) translateX(0.25rem);
+
+  font-size: 0.75rem;
+  padding:0.3rem;
+}
+
+.asterisk {
+  color: var(--link-color);
+}
+
+.hint-hover {
+  text-decoration:underline dotted 3px;
+}
+
+a {
+  color: var(--text-light)
+}
+
+a:hover {
+  color:var(--link-color);
+}
+
+code {
+  background: var(--hover-bg);
+  padding:0.2rem;
+  border-radius: 0.25rem;
+  font-size: calc(1em - 0.2rem);
+}
+
+div.caesar-demo {
+  background:#f88;
+  height:100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size:1.25rem;
+  color: #822;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+section.what {
+  display: flex;
+  flex-direction: column;
+}
+
+iframe {
+  width:100%;
+  height: 100%;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+}
+
+#step-1 input.text-key {
+  background: var(--hover-bg);
+  display: inline;
+  min-width:1ch;
+  width:15ch;
+  padding:0.25rem;
+  border-radius:0.25rem;
+
+  text-overflow: ellipsis;
+}
+
+input {
+  border:1px solid transparent;
+  box-sizing: border-box;
+}
+
+input:hover {
+  border: 1px solid var(--text-light);
+}
+
+#step-1 table {
+  border-collapse: collapse;
+}
+
+#step-1 table td {
+  border: 1px solid black;
+  padding:0.25rem;
+  width:2ch;
+  text-align: center;
+}
+
+.table-scroll-wrapper {
+  overflow:scroll;
+}
+
+div.matrix-holder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
