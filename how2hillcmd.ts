@@ -1,7 +1,7 @@
 import readline from "node:readline/promises";
 import { stdin, stdout } from "node:process";
 const rl = readline.createInterface({input:stdin, output:stdout});
-import {createMats, encipher, decipher} from "./src/cipher.ts";
+import {createMats, encipher, decipher} from "./src/hill.ts";
 
 async function main() {
 	let {n,pass} = await getInps();

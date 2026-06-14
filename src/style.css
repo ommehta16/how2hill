@@ -1,9 +1,11 @@
 :root {
   --text: #222;
   --text-light: #666;
+  --text-med: #444;
   --bg: #ccc;
   --bright: #eee;
   --font: "Inter", Verdana, Geneva, Tahoma, sans-serif;
+  --mono: "IBM Plex Mono", monospace;
   --hover-bg: #fff8;
   --link-color: oklch(0.6154 0.168 260.44);
   font-family: var(--font);
@@ -21,6 +23,10 @@
   /* @media (max-width: 1024px) {
     font-size: 20px;
   } */
+}
+
+code {
+  font-family: var(--mono);
 }
 
 input, button {
@@ -132,7 +138,7 @@ code {
   font-size: calc(1em - 0.2rem);
 }
 
-div.caesar-demo {
+div.wip-demo {
   background:#f88;
   height:100%;
 
@@ -191,7 +197,7 @@ input:hover {
 }
 
 .table-scroll-wrapper {
-  overflow:scroll;
+  overflow: auto;
 }
 
 div.matrix-holder {
@@ -199,4 +205,291 @@ div.matrix-holder {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+  p {
+    margin-block:0.25em;
+  }
+
+  ul, ol {
+    margin-block:0.5em;
+  }
+
+  h2 {
+    margin-block: 0.5em;
+  }
+}
+
+div.caesar-demo {
+  border:1px solid black;
+  background: var(--bright);
+  height:100%;
+
+  display: flex;
+}
+
+div.letter-row {
+  display: flex;
+}
+
+div.letter {
+  width: calc(1ch + 0.2em);
+  font-family: var(--mono);
+  height:1.7em;
+  padding: 0.1em;
+  border:0.5px solid #4448;
+  box-sizing: border-box;
+}
+
+div.caesar-demo input[type="number"] {
+  width:4ch;
+  border-radius: 0.25rem;
+}
+
+div.caesar-demo .middle-panel, div.caesar-demo .left-panel {
+  display: flex;
+  flex-direction: column;
+  gap:0.25rem;
+  align-items: center;
+  justify-content: center;
+}
+
+div.caesar-demo .left-panel {
+  padding:1rem;
+  width:30%;
+}
+
+div.caesar-demo .middle-panel {
+  flex-grow: 1;
+  padding:1rem;
+}
+
+/* Range input styling */
+
+input[type="range"] {
+  -webkit-appearance: none; /* Strips default Safari/Chrome styling */
+  appearance: none;
+  width: 100%;             /* Full-width container */
+  background: transparent;  /* Removes default background gray */
+  cursor: pointer;
+  &:hover {
+    border:1px solid transparent;
+  }
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  background: #bdbdbd;     /* Light gray track background */
+  border-radius: 4px;
+}
+
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;     /* Light gray track background */
+  border-radius: 4px;
+}
+
+/* Thumb styling */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Required to apply custom styles */
+  appearance: none;
+  margin-top: -6px;        /* Centers thumb vertically over track */
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #2563eb;     /* Blue theme primary color */
+  transition: transform 0.1s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+  -webkit-appearance: none; /* Required to apply custom styles */
+  appearance: none;
+  margin-top: -6px;        /* Centers thumb vertically over track */
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #2563eb;     /* Blue theme primary color */
+  transition: transform 0.1s ease;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+  background: #1d4ed8;     /* Darker blue on hover */
+  transform: scale(1.1);   /* Slightly scales up */
+}
+
+input[type="range"]:hover::-moz-range-thumb {
+  background: #1d4ed8;     /* Darker blue on hover */
+  transform: scale(1.1);   /* Slightly scales up */
+}
+
+/* END of range input styling */
+
+/* The box for the range input */
+
+.left-panel .transform-slider {
+  background: #80808016;
+  box-shadow: 0 0 1rem 1rem #8881;
+  border-radius:0.25rem;
+  border:1px solid #bbb;
+  padding:0.5rem;
+  width: calc(100% - 2rem);
+  margin-inline:1rem;
+}
+
+.left-panel .transform-slider div:last-child {
+  margin-top:0.25rem;
+}
+
+/* END of range input box styling */
+
+div.caesar-demo {
+  flex-direction: row;
+  align-items: stretch;
+  overflow:scroll;
+  height: 100%;
+}
+
+.rows-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  align-self: flex-start;
+}
+
+div.letter.enciphered {
+  background: oklch(0.93 0.06 260);
+  color: oklch(0.35 0.18 260);
+  font-weight: 600;
+}
+
+div.letter.arrow-cell {
+  border-color: transparent;
+  color: var(--text-light);
+  /* font-size: 0.8em; */
+  transform: translateY(-0.2em) scale(0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-row {
+  height: 1.2em;
+}
+
+/* k input label */
+.k-label {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.k-input {
+  width: 4.5ch;
+  padding: 0.2rem 0.25rem;
+  border-radius: 0.25rem;
+  background: var(--hover-bg);
+  text-align: center;
+}
+
+/* Slider label */
+.slider-label {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  text-align: center;
+}
+
+/* Right panel alphabet wheel */
+div.caesar-demo .right-panel {
+  padding: 0.75rem 0.5rem;
+  border-left: 1px solid #ccc;
+  overflow-y: auto;
+  min-width: 4rem;
+}
+
+.wheel-title {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  margin-bottom: 0.4rem;
+  text-align: center;
+}
+
+.alphabet-wheel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.wheel-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.wheel-from {
+  color: var(--text-light);
+  width: 1.2ch;
+  text-align: right;
+}
+
+.wheel-arrow {
+  color: #bbb;
+  font-size: 0.7rem;
+}
+
+.wheel-to {
+  color: oklch(0.35 0.18 260);
+  font-weight: 600;
+  width: 1.2ch;
+}
+
+/* Left panel tightening */
+div.caesar-demo .left-panel {
+  gap: 0.75rem;
+  padding: 1rem 0.75rem;
+  min-width: 9rem;
+  border-right: 1px solid #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  div.caesar-demo .right-panel {
+    display: none;
+  }
+}
+
+input.caesar-demo-text {
+  font: var(--mono);
+  background: var(--hover-bg);
+  padding:0.2rem;
+  border-radius: 0.25rem;
+  font-size: calc(1em - 0.2rem); 
+
+  field-sizing: content;
+}
+
+section.what ol {
+  font-size: 0.8rem;
+  color:var(--text-med);
+}
+
+.caesar-demo h2 {
+  font-size:1.25rem;
+  margin:0;
 }
