@@ -12,8 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
   <title>how2hill</title>
-  <script type="module" crossorigin src="/assets/index-C10eomUk.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-iglsYeB9.css">
+  <script type="module" crossorigin src="/assets/index-Be5ftXer.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-k1MfMqEQ.css">
 </head>
 
 <body>
@@ -132,7 +132,7 @@
       <!-- @TODO JS to auto replace [placeholder] -->
       So <span class="key-start">[placeholder]</span> becomes <code class="key-nums">[placeholder]</code>. Notice:
       <ul>
-        <li>We exclude all non-alphabetical characters. <span style="font-family:var(--mono)" class="hint-hover" data-title="How would you convert them to numbers? Consider how we could change the math to accomodate for more characters as we move through more steps :)">[why?]</span></li>
+        <li>We exclude all non-alphabetical characters. <span style="font-family:var(--mono)" class="hint-hover" data-title="Honestly, it just simplifies our matrix! We'll see why exactly in following steps">[why?]</span></li>
         <li>We repeat the password if we're under length 4. <span style="font-family:var(--mono)" class="hint-hover" data-title="We need 4 items to fill a 2×2 matrix!">[why?]</span></li>
       </ul>
       Then we can place those values into a matrix in <span class="hint-hover"
@@ -148,14 +148,45 @@
       <br>
       <p>
         <!-- @TODO WHAT STEP??-->
-        Unlike a Caesar Cipher, not <b>all</b> possible keys work. For now, we'll run the checks from <a
-          href="#step-7">step 7</a> to make sure it's OK.
+        Note that unlike a Caesar Cipher, not <b>all</b> possible keys are valid. We'll get to why in <a href="#step-7">step 7</a>.
       </p>
       <!-- @TODO show OK or NOT OK based on matrix checks -->
     </section>
     
     <section id="step-2">
       <h1>2. Encipher</h1>
+      <p>
+        This is the easiest step!
+      </p>
+      <div class="matrix-holder">
+        <span>Remember, A =&nbsp;</span>
+        <table class="matrix"></table>
+      </div>
+      <div class="step2error"></div>
+      <br>
+      <div class="part-a">
+        Start with the plaintext: <input class="nice-inp plaintext" type="text" placeholder="plaintext here!"/> <br><br>
+        Remember, we're using a Hill <b>2</b>-cipher, so our matrix is <b>2x2</b>: that means each input vector ("chunk") must be of length <b>2</b><span class="asterisk" data-title="The general practice for transforming a smaller vector by a larger matrix is to fill the tail with 0s, which is exactly what we're doing here!">*</span>. <br><br>
+
+        So our chunks are&nbsp;<code class="chunks">Loading...</code>. <small>Like earlier, we omit all non-alphabetic characters to simplify the matrix<span class="asterisk" data-title="How would you convert them to numbers? Consider how we could change the math to accomodate for more characters as we move through more steps :)">*</span></small><br><br>
+        Now <span class="hint-hover" data-title="from B-basis!">convert</span> our chunks into vectors of length 2: <code class="in-vectors">Loading...</code> <br> <br>
+        And multiply each vector by the A-matrix to get enciphered<span class="asterisk" data-title="partially enciphered, we'll see why in a second"></span> vectors: <code class="out-vectors">Loading...</code> <br><br>
+        You might notice this outputting numbers <b>WAY</b> higher than 26 (which we can't turn into letters). That's because we're missing...
+      </div>
+    </section>
+    <section id="step-2-5">
+      <h1>2.5. MODULUS!</h1>
+      <p>
+        TL;DR: we want to guarantee our numbers are back in range, so mod them by <code data-title="or whatever the size of your output character set is">26</code> to get in-range vectors.
+
+        The longer explanation...
+        <ul>
+          <li>Straight linear transformations are relatively easy to undo (they're just multiplication and addition); outputting the full result gives a LOT of info to an attacker (can just look for linear combinations that add to, say, 1000 = not actually that many in the grand scheme of things)</li>
+          <li>We can't really fix this (and to some extent don't want to, since we want to be able to decrypt!) BUT can reduce the certainty of the information</li>
+          <li>Modulus does just that: it's the remainder, which can be attained from ∞ transformation outputs<span class="asterisk" data-title="More rigorously, knowing n mod 26 = r tells me that n = r + 26k, where k is some real number. This leaves a LOTTT of possibilities though!">*</span>.</li>
+        </ul>
+        In any case, mod-ing and translating back to text should finally turn <code class="plaintext-copy"></code>&nbsp;into <code class="ciphertext"></code>.
+      </p>
     </section>
   </div>
   
