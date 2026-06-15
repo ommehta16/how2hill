@@ -12,8 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
   <title>how2hill</title>
-  <script type="module" crossorigin src="/assets/index-eEx5FVEp.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-ClMFylyi.css">
+  <script type="module" crossorigin src="/assets/index-CRzxczIk.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-B-2DqzWs.css">
 </head>
 
 <body>
@@ -44,7 +44,7 @@
     <section class="tryit">
       <div class="wip-demo">
         <!-- @TODO ADD DEMO -->
-        Hill Cipher playground goes here
+        Hill Cipher Demo goes here
       </div>
       <!-- fill this using js later -->
       <!-- Should walk user through using the cipher -->
@@ -105,7 +105,7 @@
         <li>Pass the vector through an <code>n</code>×<code>n</code> transformation matrix</li>
         <li>Mod the result and turn it back into numbers</li>
       </ol>
-      Let's go through each of the <b>5</b> basic steps
+      Let's go through each of the <b>4</b> basic steps
     </section>
     
     <section id="step-1">
@@ -146,7 +146,7 @@
       <br>
       <p>
         <!-- @TODO WHAT STEP??-->
-        Note that unlike a Caesar Cipher, not <b>all</b> possible keys are valid. We'll get to why in <a href="#step-7">step 7</a>.
+        Note that unlike a Caesar Cipher, not <b>all</b> possible keys are valid. We'll get to why in <a href="#step-3">step 3</a>.
       </p>
       <!-- @TODO show OK or NOT OK based on matrix checks -->
     </section>
@@ -187,7 +187,7 @@
       </p>
     </section>
     <section id="step-3">
-      <h1>3. Deciphering</h1>
+      <h1>3. Make Decipher Key</h1>
       <p>
         What we've done so far is (essentially):
       </p>
@@ -209,6 +209,59 @@
         <table class="matrix"></table>
       </div>
     </section>
+    <section id="step-4">
+      <h1>4. Decipher</h1>
+      <p>All the hard work is done! <code>B</code> in <code>mod 26</code> behaves exactly like you'd expect <code>A<sup>-1</sup></code> to behave regularly, so we can just:</p>
+      <ol>
+        <li>Chunk up and vectorize <code class="ciphertext">Loading...</code> into <code class="vec-chunks-in">Loading...</code></li>
+        <li>Pass each chunk through <code>B</code> and mod them to get <code class="vec-chunks-out">Loading...</code></li>
+        <li>Turn the chunks back into letters, to get <code class="deciphered">Loading...</code> (our original text was <code class="plaintext">Loading...</code>)</li>
+      </ol>
+      <br>
+      <hr>
+      <br>
+      <h2>4 steps.</h2>
+      <p><b>And two of them (enciphering and deciphering) are practically the same.</b> Somehow, that's all we need to package up a secret for sharing.</p>
+      <br>
+      How well does Hill protect our secrets though?
+    </section>
+    <section id="its-bad">
+      <h1>It's kinda bad</h1>
+      <p>The Hill Cipher was developed mainly as an <span data-title="like how it's being used right now!">educational tool</span> and a proof-of-concept for linear algebra-based <span data-title="ciphers that encrypt multiple characters together">block ciphers</span>.</p>
+      <p>And it's really good at that! The key ideas are the same as encryption algorithms that computers actually use (e.g. <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" target="_blank">aes</a>, <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" target="_blank">rsa</a>), and it's a great intro to cryptography.</p>
+      <p>We don't use it irl because of its massive flaws:</p>
+      <ul>
+        <li>It's perfectly linear, so if cracked on one block, whole transmission is cracked</li>
+        <li>More limited key space than other encryption methods (see requirements from <a href="#step-3">step 3</a>)</li>
+        <li>Padding (the "a"s we added to the end) gives repeated characters -> can hint at matrix</li>
+        <li>Patterns remain (can allow predictable documents e.g. letters beginning with "Dear," to be cracked)</li>
+      </ul>
+      <p>
+        That leaves a <b>LOT</b> of space for improvement! One easy change is to increase matrix size from 2x2. This lets us "jumble" more letters at once, so get a more secure<span class="asterisk" data-title="less insecure?">*</span> message.<br /><br />
+        Play around with it on the <a href="#full-playground">next page</a>!
+      </p>
+    </section>
+    <div class="playground-container">
+      <section id="full-playground">
+        <!-- <h1>Play around with it!</h1>
+        <small><i>You know how it works; now, write some messages :)</i></small> -->
+        <div class="wip-demo">Full Playground Goes here</div>
+      </section>
+    </div>
+    <div class="the-end">
+      <section id="thank-you">
+        <h1>Thanks for Reading!</h1>
+        <i><small>ngl took WAY too long to do this but</small></i>
+        <i><small>I think it's pretty nice :)</small></i>
+      </section>
+      <footer>
+        <span>(c) <a target="_blank" href="https://ommehta16.github.io">Om Mehta</a> 2026</span>
+        <span>Final Project for Reyes' Pd. 3 Linear Algebra '25-'26</span>
+      </footer>
+    </div>
+    <div class="error-popup error">
+      Before continuting, please enter a <b>valid</b> matrix <code>A</code> to do the enciphering! Go back to <a href="#step-1">step 1</a>, fix your matrix, then come back.
+    </div>
   </div>
   
 </body>
