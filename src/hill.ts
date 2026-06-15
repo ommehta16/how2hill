@@ -20,8 +20,18 @@ export function createMats(n:number, pass:string, MOD:number=26) {
 	return { A: A, B: B };
 }
 
-function passToKey(n:number, pass:string):Matrix {
+export function passToChunks(n:number, pass:string):number[] {
+	if (pass.length == 0) return [];
+	let extendedPass = "";
+	while (extendedPass.length < n*n) extendedPass += pass;
+	extendedPass = extendedPass.substring(0,n*n);
+
+	return Array.from(extendedPass).map(charToNumber);
+}
+
+export function passToKey(n:number, pass:string):Matrix {
 	if (!Number.isInteger(n) || n<=0) throw new TypeError(`Size passed in not a positive integer (n = ${n})`);
+	if (pass.length == 0) throw new Error("Pass too short");
 
 	const mat:number[][] = [];
 	let extendedPass = "";

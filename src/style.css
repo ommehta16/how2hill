@@ -484,7 +484,7 @@ input.caesar-demo-text {
   field-sizing: content;
 }
 
-section.what ol {
+section.what ol, section#step-1 ul {
   font-size: 0.8rem;
   color:var(--text-med);
 }
@@ -492,4 +492,27 @@ section.what ol {
 .caesar-demo h2 {
   font-size:1.25rem;
   margin:0;
+}
+
+table.matrix {
+  font-family: var(--mono);
+}
+
+table.matrix td {
+  padding:0.25rem;
+  width: calc(1ch + 0.25rem);
+  height: calc(1em + 0.25rem);
+}
+
+section#step-1 code.checks {
+  color:#822;
+  font-weight: bold;
+}
+
+section#step-1 code.checks.good {
+  color: rgb(0, 161, 0);
+}
+
+table.conversion-table {
+  font-family: var(--mono);
 }
