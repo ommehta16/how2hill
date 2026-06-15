@@ -187,7 +187,7 @@
     <section id="step-3">
       <h1>3. Make Decipher Key</h1>
       <p>
-        What we've done so far is (essentially):
+        All we've really done so far is:
       </p>
       <ol>
         <li>Create a transformation matrix <code>A</code> from our key string</li>
@@ -227,12 +227,12 @@
       <h1>It's kinda bad</h1>
       <p>The Hill Cipher was developed mainly as an <span data-title="like how it's being used right now!">educational tool</span> and a proof-of-concept for linear algebra-based <span data-title="ciphers that encrypt multiple characters together">block ciphers</span>.</p>
       <p>And it's really good at that! The key ideas are the same as encryption algorithms that computers actually use (e.g. <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" target="_blank">aes</a>, <a href="https://en.wikipedia.org/wiki/RSA_cryptosystem" target="_blank">rsa</a>), and it's a great intro to cryptography.</p>
-      <p>We don't use it irl because of its massive flaws:</p>
+      <p>BUT we don't use it irl because:</p>
       <ul>
         <li>It's perfectly linear, so if cracked on one block, whole transmission is cracked</li>
         <li>More limited key space than other encryption methods (see requirements from <a href="#step-3">step 3</a>)</li>
         <li>Padding (the "a"s we added to the end) gives repeated characters -> can hint at matrix</li>
-        <li>Patterns remain (can allow predictable documents e.g. letters beginning with "Dear," to be cracked)</li>
+        <li>Patterns remain (can allow predictable documents to be cracked)</li>
       </ul>
       <p>
         That leaves a <b>LOT</b> of space for improvement! One easy change is to increase matrix size from 2x2. This lets us "jumble" more letters at once, so get a more secure<span class="asterisk" data-title="less insecure?">*</span> message.<br /><br />
@@ -254,7 +254,7 @@
       </section>
       <footer>
         <span>(c) <a target="_blank" href="https://ommehta16.github.io">Om Mehta</a> 2026</span>
-        <span>Final Project for Reyes' Pd. 3 Linear Algebra '25-'26</span>
+        <span>Final Project for Linear Algebra '26</span>
       </footer>
     </div>
     <div class="error-popup error">
