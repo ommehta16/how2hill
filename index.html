@@ -12,8 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
   <title>how2hill</title>
-  <script type="module" crossorigin src="/assets/index-D0R83wyU.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-DyxXs4wI.css">
+  <script type="module" crossorigin src="/assets/index-C10eomUk.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-iglsYeB9.css">
 </head>
 
 <body>
@@ -121,7 +121,7 @@
         position in the alphabet using <b data-title="↓">this table</b>
       </p>
       <div class="table-scroll-wrapper">
-        <table>
+        <table class="conversion-table">
           <tbody>
             <tr><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>g</td><td>h</td><td>i</td><td>j</td><td>k</td><td>l</td><td>m</td><td>n</td><td>o</td><td>p</td><td>q</td><td>r</td><td>s</td><td>t</td><td>u</td><td>v</td><td>w</td><td>x</td><td>y</td><td>z</td></tr>
             <tr><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td></tr>
@@ -130,17 +130,20 @@
       </div>
       <br>
       <!-- @TODO JS to auto replace [placeholder] -->
-      So <span style="color:#822">[placeholder]</span> becomes <code style="color:#822">[placeholder]</code>
-      <br><br>
+      So <span class="key-start">[placeholder]</span> becomes <code class="key-nums">[placeholder]</code>. Notice:
+      <ul>
+        <li>We exclude all non-alphabetical characters. <span style="font-family:var(--mono)" class="hint-hover" data-title="How would you convert them to numbers? Consider how we could change the math to accomodate for more characters as we move through more steps :)">[why?]</span></li>
+        <li>We repeat the password if we're under length 4. <span style="font-family:var(--mono)" class="hint-hover" data-title="We need 4 items to fill a 2×2 matrix!">[why?]</span></li>
+      </ul>
       Then we can place those values into a matrix in <span class="hint-hover"
         data-title="1 row at a time, left to right within the row">row-major order</span>
       <br><br>
       <!-- @TODO JS to auto replace values in matrix -->
       <div class="matrix-holder">
-        <table class="matrix">
-          <tr><td>1</td><td>2</td></tr>
-          <tr><td>3</td><td>4</td></tr>
-        </table>
+        <span>A =&nbsp;</span>
+        <table class="matrix"></table>
+        <span>&nbsp;->&nbsp;</span>
+        <code class="checks"> Loading... </code>
       </div>
       <br>
       <p>
