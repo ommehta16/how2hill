@@ -521,7 +521,7 @@ table.conversion-table {
 
 .error {
   color:#822;
-  background:#f88;
+  background:#faa;
   padding:1rem;
   margin-block:1rem;
   border-radius:0.25rem;
@@ -552,4 +552,68 @@ small {
 
 section.can-overflow {
   overflow-y:scroll;
+}
+
+hr {
+  border:0.5px solid var(--text-med);
+}
+
+section#thank-you {
+  border-bottom:none;
+}
+
+.the-end {
+  background:lightblue url("./assets/hills.svg") no-repeat bottom;
+  position: relative;
+}
+
+.playground-container {
+  background: linear-gradient(0deg,lightblue 0%, transparent 50%);
+  /* background:red; */
+}
+
+#full-playground {
+  border-bottom: none;
+}
+
+#thank-you h1 {
+  text-align: center;
+}
+
+#thank-you {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  position: absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding:1rem;
+  font-size:0.75rem;
+  z-index:1000;
+}
+
+footer a {
+  color: unset;
+}
+
+.error-popup {
+  position: fixed;
+  bottom:-8rem;
+  left:1rem;
+  right:1rem;
+  margin-inline:1rem;
+  transition:bottom 0.2s;
+}
+
+.error-popup.active {
+  bottom: 1rem;
 }

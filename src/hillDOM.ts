@@ -1,5 +1,5 @@
 import "./hill";
-import { chunkToVector, createMats, encipher, encipherToVec, passToChunks, toChunks } from "./hill";
+import { chunkToVector, createMats, decipher, encipher, encipherToVec, passToChunks, toChunks } from "./hill";
 import { Matrix } from "mathjs";
 
 const N = 2;
@@ -104,7 +104,16 @@ function setupStepTwo() {
 	const plainTextContainer:Element|null = document.querySelector("#step-2-5 code.plaintext-copy");
 	const cipherTextContainer:Element|null = document.querySelector("#step-2-5 code.ciphertext");
 
-	if (!step1Inp || !matTable || !twoErrorContainer || !plaintextInp || !chunksContainer || !inVectorsContainer || !outVectorsContainer || !plainTextContainer || !cipherTextContainer) throw new Error("Malformed HTML");
+	const step4 = document.querySelector("#step-4");
+	if (!step4) throw new Error("wtf?");
+
+	const cipherTextContainer2:Element|null = step4.querySelector("code.ciphertext"); //
+	const inVectorsContainer2:Element|null = step4.querySelector("code.vec-chunks-in"); //
+	const outVectorsContainer2:Element|null = step4.querySelector("code.vec-chunks-out"); //
+	const decipheredOutput:Element|null = step4.querySelector("code.deciphered");
+	const plainTextContainer2:Element|null = step4.querySelector("code.plaintext"); //
+
+	if (!step1Inp || !matTable || !twoErrorContainer || !plaintextInp || !chunksContainer || !inVectorsContainer || !outVectorsContainer || !plainTextContainer || !cipherTextContainer || !cipherTextContainer2 || !inVectorsContainer2 || !outVectorsContainer2 || !decipheredOutput || !plainTextContainer2) throw new Error("Malformed HTML");
 	console.log("hello?");
 
 	step1Inp.addEventListener("input",() => { setTimeout(()=>{
@@ -118,16 +127,34 @@ function setupStepTwo() {
 		hillState.hillMat ? hillState.ciphertext = encipher(hillState.plaintext,hillState.hillMat) : "";
 		updateChunks(chunksContainer);
 		updateInVectors(inVectorsContainer);
+		updateInVectors(inVectorsContainer2);
 		updateOutVectors(outVectorsContainer);
+		updateOutVectors(outVectorsContainer2);
 		updateTwo5(plainTextContainer,cipherTextContainer);
-	})
+		updateTwo5(plainTextContainer2,cipherTextContainer2);
+		updateDeciphered(decipheredOutput);
+	});
 	
 	updateMatrix(matTable,hillState.hillMat);
 	updateStep2Error(twoErrorContainer);
 	updateChunks(chunksContainer);
 	updateInVectors(inVectorsContainer);
+	updateInVectors(inVectorsContainer2);
 	updateOutVectors(outVectorsContainer);
+	updateOutVectors(outVectorsContainer2);
 	updateTwo5(plainTextContainer,cipherTextContainer);
+	updateTwo5(plainTextContainer2,cipherTextContainer2);
+	updateDeciphered(decipheredOutput);
+
+}
+
+function updateDeciphered(decipheredContainer:Element) {
+	if (!hillState.decipherMat) {
+		decipheredContainer.innerHTML="";
+		return;
+	}
+	const deciphered = decipher(hillState.ciphertext,hillState.decipherMat);
+	decipheredContainer.innerHTML=deciphered;
 }
 
 function updateMatrix(matTable:HTMLTableElement,matrix:Matrix|null) {
@@ -174,3 +201,15 @@ function updateTwo5(plaintextContainer:Element, cipherTextContainer:Element) {
 }
 
 setupStepTwo();
+
+window.addEventListener("scroll", ()=>{
+	if (!document.querySelector("#step-2 .error")) return;
+
+	const step3 = document.querySelector("#step-2-5");
+	if (!step3) return document.querySelector(".error-popup")?.classList.remove("active");
+
+	const top = step3.getBoundingClientRect().top;
+	if (top > .5*window.innerHeight) return document.querySelector(".error-popup")?.classList.remove("active");
+
+	document.querySelector(".error-popup")?.classList.add("active");
+})
