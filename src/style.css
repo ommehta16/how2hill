@@ -52,6 +52,7 @@ section {
   padding:2rem;
 
   scroll-snap-align: start;
+  overflow-y: hidden;
 }
 
 h1 {
@@ -133,6 +134,7 @@ a:hover {
 
 code {
   background: var(--hover-bg);
+  background: rgb(231 231 231);
   padding:0.2rem;
   border-radius: 0.25rem;
   font-size: calc(1em - 0.2rem);
@@ -546,4 +548,8 @@ input[type="text"].nice-inp {
 
 small {
   color: var(--text-med);
+}
+
+section.can-overflow {
+  overflow-y:scroll;
 }

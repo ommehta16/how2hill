@@ -11,13 +11,15 @@ const hillState:{
 	plaintext: string,
 	chunks: string[],
 	ciphertext:string,
+	decipherMat:Matrix|null
 } = {
 	keyString:"",
 	keyChunks:[],
 	hillMat:null,
 	plaintext: "",
 	chunks: [],
-	ciphertext:""
+	ciphertext:"",
+	decipherMat:null
 }
 
 // Grab all change source elements
@@ -32,14 +34,16 @@ function setupStepOne() {
 	const keyNums = step1.querySelector("code.key-nums");
 	const matTable:HTMLTableElement|null = step1.querySelector("table.matrix");
 	const matCheck = step1.querySelector("code.checks");
-	if (!keyStart || !keyInput || !keyNums || !matTable || !matCheck) throw new Error("Malformed HTML, cannot continue");
+	const matB:HTMLTableElement|null = document.querySelector("#step-3 table.matrix");
+	if (!keyStart || !keyInput || !keyNums || !matTable || !matCheck || !matB) throw new Error("Malformed HTML, cannot continue");
 
 	keyInput.addEventListener("input",() => {
 		hillState.keyString = keyInput.value.replaceAll(/[^a-zA-Z]/g,"").substring(0,4);
 		hillState.keyChunks = passToChunks(N,hillState.keyString);
 		try{
-			hillState.hillMat = createMats(N,hillState.keyString).A;
-			console.log(hillState.hillMat);
+			const {A, B} = createMats(N,hillState.keyString);
+			hillState.hillMat=A; hillState.decipherMat=B;
+			updateMatrix(matB,hillState.decipherMat);
 		} catch {
 			hillState.hillMat = null;
 		}
@@ -48,7 +52,7 @@ function setupStepOne() {
 		updateVisualMatrix(matTable);
 		updateMatrixCheck(matCheck);
 	});
-
+	updateMatrix(matB,hillState.decipherMat);
 	updateKeyStart(keyStart);
 	updateKeyNums(keyNums);
 	updateVisualMatrix(matTable);

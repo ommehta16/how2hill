@@ -85,10 +85,9 @@
 
     <section class="hill-intro">
       <h1>What's a <b>Hill</b> Cipher?</h1>
-      <p>
-        Just like any <a href="#whats-a-cipher">cipher</a>, it turns plaintext into ciphertext and back again.
-        <br><br>
-        However, Hill Ciphers are <b>much</b> harder to crack than Caesar ciphers. Why is that?
+      Just like any <a href="#whats-a-cipher">cipher</a>, it turns plaintext into ciphertext and back again.
+      <br><br>
+      However, Hill Ciphers are <b>much</b> harder to crack than Caesar ciphers. Why is that?
       <ul>
         <li>Caesar ciphers have very few (26) possible keys. Hill Ciphers have many (<span
             data-title="(2^64)^(n^2) ≈ ∞">∞</span>), so you can't just check every key</li>
@@ -105,7 +104,6 @@
         <li>Mod the result and turn it back into numbers</li>
       </ol>
       Let's go through each of the <b>5</b> basic steps
-      </p>
     </section>
     
     <section id="step-1">
@@ -151,7 +149,7 @@
       <!-- @TODO show OK or NOT OK based on matrix checks -->
     </section>
     
-    <section id="step-2">
+    <section id="step-2" class="can-overflow">
       <h1>2. Encipher</h1>
       <p>
         This is the easiest step!
@@ -166,7 +164,7 @@
         Start with the plaintext: <input class="nice-inp plaintext" type="text" placeholder="plaintext here!"/> <br><br>
         Remember, we're using a Hill <b>2</b>-cipher, so our matrix is <b>2x2</b>: that means each input vector ("chunk") must be of length <b>2</b><span class="asterisk" data-title="The general practice for transforming a smaller vector by a larger matrix is to fill the tail with 0s, which is exactly what we're doing here!">*</span>. <br><br>
 
-        So our chunks are&nbsp;<code class="chunks">Loading...</code>. <small>Like earlier, we omit all non-alphabetic characters to simplify the matrix<span class="asterisk" data-title="How would you convert them to numbers? Consider how we could change the math to accomodate for more characters as we move through more steps :)">*</span></small><br><br>
+        So our chunks are&nbsp;<code class="chunks">Loading...</code>. <small>Like earlier, we omit all non-alphabetic characters to simplify the vectors<span class="asterisk" data-title="How would you convert them to numbers? Consider how we could change the math to accomodate for more characters as we move through more steps :)">*</span></small><br><br>
         Now <span class="hint-hover" data-title="from B-basis!">convert</span> our chunks into vectors of length 2: <code class="in-vectors">Loading...</code> <br> <br>
         And multiply each vector by the A-matrix to get enciphered<span class="asterisk" data-title="partially enciphered, we'll see why in a second"></span> vectors: <code class="out-vectors">Loading...</code> <br><br>
         You might notice this outputting numbers <b>WAY</b> higher than 26 (which we can't turn into letters). That's because we're missing...
@@ -185,6 +183,29 @@
         </ul>
         In any case, mod-ing and translating back to text should finally turn <code class="plaintext-copy"></code>&nbsp;into <code class="ciphertext"></code>.
       </p>
+    </section>
+    <section id="step-3">
+      <h1>3. Deciphering</h1>
+      <p>
+        What we've done so far is (essentially):
+      </p>
+      <ol>
+        <li>Create a transformation matrix <code>A</code> from our key string</li>
+        <li>Create a list of vectors (a matrix!) <code>P</code> from our plaintext</li>
+        <ul>
+          <li>... and encode <code>AP mod 26</code> into text as <code>ciphertext</code></li>
+        </ul>
+      </ol>
+      <br>
+      <p>
+        If it weren't for the <code>mod</code>, step 3 would be <b>obvious</b>: find <code>A<sup>-1</sup></code> and multiply <code>AP</code> by it. <br><br>
+        Turns out, number theory is actually really nice here: via some fancy math<span class="asterisk" data-title="I'm going to handwave this as NT being nice, but it works because the fundamental concept is the same: for an number r, 1/r * r = 1 (duh); with modulus, r^-1 (the modular inverse of r) * r = 1 by definition. By somewhat (barely) similar ish logic, we extend it to modulus: we find the modular inverse matrix and call it B. This is typically defined as B = (adj(A) * modinv(det A)) mod m but we can use our knowledge of linear algebra (!) to turn this into B = (A^-1 * modinv( det(A) ) * det(A)) mod m">*</span>, we can find our decryption matrix, <code>B</code>.<br><br>
+        This is where the key restrictions come in: we calculate B as <code>B = (A<sup>-1</sup> * modinv(det A) * det(A)) mod 26</code>, which requires <code>A</code> to be invertible <b>AND</b> its determinant to have a modular inverse. Your key is valid, so:
+      </p>
+      <div class="matrix-holder">
+        <span>B =&nbsp;</span>
+        <table class="matrix"></table>
+      </div>
     </section>
   </div>
   
