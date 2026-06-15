@@ -607,11 +607,11 @@ footer a {
 
 .error-popup {
   position: fixed;
-  bottom:-8rem;
+  bottom:-12rem;
   left:1rem;
   right:1rem;
   margin-inline:1rem;
-  transition:bottom 0.2s;
+  transition:bottom 0.5s;
 }
 
 .error-popup.active {
