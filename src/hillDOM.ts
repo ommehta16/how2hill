@@ -1,5 +1,5 @@
 import "./hill";
-import { createMats, passToChunks, passToKey } from "./hill";
+import { createMats, passToChunks } from "./hill";
 import { Matrix } from "mathjs";
 
 
