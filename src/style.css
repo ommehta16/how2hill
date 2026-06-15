@@ -486,8 +486,13 @@ input.caesar-demo-text {
   field-sizing: content;
 }
 
-section.what ol, section#step-1 ul {
+section#step-1 ul {
   font-size: 0.8rem;
+  color:var(--text-med);
+}
+
+section.what ol, section.what ul {
+  font-size:0.75rem;
   color:var(--text-med);
 }
 
