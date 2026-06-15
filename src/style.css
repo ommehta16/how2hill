@@ -185,11 +185,11 @@ input:hover {
   border: 1px solid var(--text-light);
 }
 
-#step-1 table {
+table.matrix, table.conversion-table {
   border-collapse: collapse;
 }
 
-#step-1 table td {
+table.matrix td, table.conversion-table td {
   border: 1px solid black;
   padding:0.25rem;
   width:2ch;
@@ -515,4 +515,35 @@ section#step-1 code.checks.good {
 
 table.conversion-table {
   font-family: var(--mono);
+}
+
+.error {
+  color:#822;
+  background:#f88;
+  padding:1rem;
+  margin-block:1rem;
+  border-radius:0.25rem;
+  border: 1px solid;
+  box-sizing: border-box;
+}
+
+.error a {
+  color: #611;
+  font-weight: bold;
+}
+
+input[type="text"].nice-inp {
+  border-radius:0.25rem;
+  padding:0.25rem;
+  font-size:0.9em;
+
+  field-sizing: content;
+}
+
+#step-2:has(.error) div.part-a {
+  display: none;
+}
+
+small {
+  color: var(--text-med);
 }

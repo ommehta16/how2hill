@@ -54,25 +54,51 @@ function numberToChar(c:number) {
 	return String.fromCharCode('a'.charCodeAt(0)+c);
 }
 
-export function encipher(text:string, mat:Matrix,MOD:number=26):string {
-	if (text.length == 0) return "";
-	const n = mat.size()[0];
-	
-	// chunk into size `n`
+export function toChunks(text:string, n:number):string[] {
+	if (text.length == 0) return [];
 	let chunks = [];
 
 	for (let i=0;i<Math.ceil(text.length/n);i++) 
 		chunks.push(text.substring(i*n,Math.min(i*n+n,text.length)));
 	
 	while (chunks[chunks.length-1].length != n) 
-		chunks[chunks.length-1] += " ";
-	// Just keep postpending spaces to it lol
-	// spaces highkey never unencrypt but ummm
-	// probs fine
+		chunks[chunks.length-1] += "a";
+
+	return chunks;
+}
+
+export function chunkToVector(chunk:string) {
+	return [...chunk].map(c => charToNumber(c));
+}
+
+export function encipherToVec(text:string, mat:Matrix):number[][] {
+	if (text.length == 0) return [];
+	const n = mat.size()[0];
+	
+	// chunk into size `n`
+	const chunks = toChunks(text, n);
+
+	let out = [];
+	for (const chunk of chunks) {
+		const numVals = chunkToVector(chunk);
+
+		const outChunk = multiply(mat, numVals).toArray() as number[];
+		out.push(outChunk);
+	}
+
+	return out;
+}
+
+export function encipher(text:string, mat:Matrix,MOD:number=26):string {
+	if (text.length == 0) return "";
+	const n = mat.size()[0];
+	
+	// chunk into size `n`
+	const chunks = toChunks(text, n);
 
 	let out = "";
 	for (const chunk of chunks) {
-		const numVals = [...chunk].map(c => charToNumber(c));
+		const numVals = chunkToVector(chunk);
 
 		const outChunk = multiply(mat, numVals).map(a => mod(a,MOD));
 		const outText = outChunk.map(num => numberToChar(num)).toArray().join("");

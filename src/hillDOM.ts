@@ -1,16 +1,23 @@
 import "./hill";
-import { createMats, passToChunks } from "./hill";
+import { chunkToVector, createMats, encipher, encipherToVec, passToChunks, toChunks } from "./hill";
 import { Matrix } from "mathjs";
 
+const N = 2;
 
 const hillState:{
 	keyString: string,
 	keyChunks: number[],
-	hillMat:Matrix|null
+	hillMat:Matrix|null,
+	plaintext: string,
+	chunks: string[],
+	ciphertext:string,
 } = {
 	keyString:"",
 	keyChunks:[],
-	hillMat:null
+	hillMat:null,
+	plaintext: "",
+	chunks: [],
+	ciphertext:""
 }
 
 // Grab all change source elements
@@ -26,7 +33,7 @@ function setupStepOne() {
 	const matTable:HTMLTableElement|null = step1.querySelector("table.matrix");
 	const matCheck = step1.querySelector("code.checks");
 	if (!keyStart || !keyInput || !keyNums || !matTable || !matCheck) throw new Error("Malformed HTML, cannot continue");
-	const N = 2;
+
 	keyInput.addEventListener("input",() => {
 		hillState.keyString = keyInput.value.replaceAll(/[^a-zA-Z]/g,"").substring(0,4);
 		hillState.keyChunks = passToChunks(N,hillState.keyString);
@@ -77,3 +84,89 @@ function updateMatrixCheck(matCheck:Element) {
 }
 
 setupStepOne();
+
+function setupStepTwo() {
+	const step2 = document.querySelector("#step-2");
+	if (!step2) throw new Error("wtf?");
+
+	const step1Inp:HTMLInputElement|null = document.querySelector("#step-1 input.text-key");
+	const plaintextInp:HTMLInputElement|null = step2.querySelector("input.plaintext");
+
+	const matTable:HTMLTableElement|null = step2.querySelector("table.matrix");
+	const twoErrorContainer:HTMLDivElement|null = step2.querySelector("div.step2error");
+	const chunksContainer:Element|null = step2.querySelector("code.chunks");
+	const inVectorsContainer:Element|null = step2.querySelector("code.in-vectors");
+	const outVectorsContainer:Element|null = step2.querySelector("code.out-vectors");
+	const plainTextContainer:Element|null = document.querySelector("#step-2-5 code.plaintext-copy");
+	const cipherTextContainer:Element|null = document.querySelector("#step-2-5 code.ciphertext");
+
+	if (!step1Inp || !matTable || !twoErrorContainer || !plaintextInp || !chunksContainer || !inVectorsContainer || !outVectorsContainer || !plainTextContainer || !cipherTextContainer) throw new Error("Malformed HTML");
+	console.log("hello?");
+
+	step1Inp.addEventListener("input",() => { setTimeout(()=>{
+		updateMatrix(matTable,hillState.hillMat);
+		updateStep2Error(twoErrorContainer);
+	},10); });
+
+	plaintextInp.addEventListener("input", () => {
+		hillState.plaintext = plaintextInp.value.replaceAll(/[^a-zA-Z]/g,"");
+		hillState.chunks = toChunks(hillState.plaintext, N);
+		hillState.hillMat ? hillState.ciphertext = encipher(hillState.plaintext,hillState.hillMat) : "";
+		updateChunks(chunksContainer);
+		updateInVectors(inVectorsContainer);
+		updateOutVectors(outVectorsContainer);
+		updateTwo5(plainTextContainer,cipherTextContainer);
+	})
+	
+	updateMatrix(matTable,hillState.hillMat);
+	updateStep2Error(twoErrorContainer);
+	updateChunks(chunksContainer);
+	updateInVectors(inVectorsContainer);
+	updateOutVectors(outVectorsContainer);
+	updateTwo5(plainTextContainer,cipherTextContainer);
+}
+
+function updateMatrix(matTable:HTMLTableElement,matrix:Matrix|null) {
+	if (!matrix) {
+		matTable.innerHTML = `<tr><td></td><td></td></tr>
+							<tr><td></td><td></td></tr>`
+		return;
+	}
+
+	matTable.innerHTML = `
+	<tr><td>${matrix.get([0,0])}</td><td>${matrix.get([0,1])}</td></tr>
+	<tr><td>${matrix.get([1,0])}</td><td>${matrix.get([1,1])}</td></tr>
+	`;
+}
+
+function updateStep2Error(twoError:HTMLDivElement) {
+	if (!hillState.hillMat) twoError.innerHTML = `<div class="twoa-error error">Before we encipher, we need a <b>valid</b> matrix <code>A</code> to do the enciphering! Go back to <a href="#step-1">step 1</a>, fix your matrix, then come back.</div>`;
+	else twoError.innerHTML = ``;
+}
+
+function updateChunks(chunksContainer:Element) {
+	const chunks = toChunks(hillState.plaintext, N);
+	chunksContainer.innerHTML = `[ ${chunks.join(" ")} ]`;
+}
+
+function updateInVectors(inVectorsContainer:Element) {
+	const chunks = hillState.chunks;
+	const vecs = chunks.map(chunkToVector).map(el=>`[ ${el.join(" ")} ]`);
+	inVectorsContainer.innerHTML = `[ ${vecs.join(", ")} ]`;
+}
+
+function updateOutVectors(outVectorsContainer:Element) {
+	if (!hillState.hillMat) {
+		outVectorsContainer.innerHTML='';
+		return;
+	}
+	const vecs = encipherToVec(hillState.plaintext,hillState.hillMat).map(el=>`[ ${el.join(" ")} ]`);
+	outVectorsContainer.innerHTML = `[ ${vecs.join(", ")} ]`;
+}
+
+function updateTwo5(plaintextContainer:Element, cipherTextContainer:Element) {
+	plaintextContainer.innerHTML=hillState.plaintext;
+	cipherTextContainer.innerHTML=hillState.ciphertext;
+}
+
+setupStepTwo();
