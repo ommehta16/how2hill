@@ -569,6 +569,7 @@ section#thank-you {
 
 .the-end {
   background:lightblue url("./assets/hills.svg") no-repeat bottom;
+  background-size: cover;
   position: relative;
 }
 
