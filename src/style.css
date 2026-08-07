@@ -140,7 +140,7 @@ code {
   font-size: calc(1em - 0.2rem);
 }
 
-div.wip-demo {
+.wip-demo {
   background:#f88;
   height:100%;
 
@@ -622,4 +622,11 @@ footer a {
 
 .error-popup.active {
   bottom: 1rem;
+}
+
+iframe {
+  border:1px solid black;
+  width:100%;
+  height: 100%;
+  box-sizing: border-box;
 }

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hill Cipher Playground</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+  <title>Hill Cipher Playground</title>
+</head>
+
+<body>
+  <div id="app">
+	<h2>Hill Ciphers</h2>
+	<div class="playground">
+		<div class="start">
+			<div class="cipher-setup">
+				<label>Key <input class="text-key"></label> <br />
+				<label>Size <input class="mat-size" type="number"></label>
+			</div>
+			<h3>Plaintext</h3>
+			<textarea class="plaintext"></textarea>
+		</div>
+		<div class="middle">
+			<h3>Encryption Matrix</h3>
+			<table class="matrix encrypt-mat"></table>
+			<h3>Decryption Matrix</h3>
+			<table class="matrix decrypt-mat"></table>
+		</div>
+		<div class="end">
+			<h3>Ciphertext</h3>
+			<textarea class="ciphertext"></textarea>
+
+			<h3>Decrypted</h3>
+			<p class="decrypted"></p>
+		</div>
+	</div>
+  </div>
+  
+  <script type="module" src="/src/hillplaygrond.ts"></script>
+</body>
+
+</html>
+
+<!-- Design in freeform (`see how2hill playground + demo design`) -->
