@@ -217,7 +217,7 @@ export function hydrate(parent:Element) {
 	const infoButton = document.querySelector(".info-button");
 	if (!infoButton) throw new Error("Malformed internal HTML");
 
-	infoButton.addEventListener("click", e=>{
+	infoButton.addEventListener("click", ()=>{
 		const dialog = document.querySelector("dialog");
 		dialog && dialog.showModal();
 	});
@@ -225,12 +225,12 @@ export function hydrate(parent:Element) {
 	const dialogCloseButton = document.querySelector("dialog button");
 	if (!dialogCloseButton) throw new Error("Malformed internal HMTL");
 
-	dialogCloseButton.addEventListener("click", e=>{
+	dialogCloseButton.addEventListener("click", ()=>{
 		const dialog = document.querySelector("dialog");
 		dialog && dialog.close();
 	})
 
-	const attrs = parent.attributes;
+	// const attrs = parent.attributes;
 
 	try { loadRefs(parent); }
 	catch (e) { throw e; } // I'm a genius
