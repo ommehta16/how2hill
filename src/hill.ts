@@ -45,13 +45,30 @@ export function passToKey(n:number, pass:string):Matrix {
 	return matrix(mat);
 }
 
-function charToNumber(c:string) {
-	if (c.length != 1) throw new TypeError(`c must be one character, is ${c}`);
-	return c.toLowerCase().charCodeAt(0) - 'a'.charCodeAt(0);
+let mapping = "abcdefghijklmnopqrstuvwxyz";
+
+function bestGuess(c:string) {
+	if (mapping.includes(c)) return c;
+	if ("ABCDEFGHIJKLMNOPQRSTUVWXYZ".includes(c)) return c.toLowerCase();
+	return " ";
 }
 
-function numberToChar(c:number) {
-	return String.fromCharCode('a'.charCodeAt(0)+c);
+function charToNumber(c:string) {
+	if (c.length != 1) throw new TypeError(`c must be one character, is ${c}`);
+
+	const char = bestGuess(c);
+	if (mapping.includes(char)) return mapping.indexOf(char);
+	return 0;
+}
+
+function numberToChar(n:number) {
+	if (n > mapping.length) throw new TypeError(`n must be within length of mapping, is ${n}; mapping of length ${mapping.length}`);
+	return mapping.charAt(n);
+}
+
+export function setMapping(mp:string) {
+	mapping = mp;
+	console.log("hello");
 }
 
 export function toChunks(text:string, n:number):string[] {

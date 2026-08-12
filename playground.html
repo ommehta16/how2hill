@@ -2,47 +2,101 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hill Cipher Playground</title>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/png" href="/favicon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Hill Cipher Playground</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+		rel="stylesheet">
+	<script src="https://kit.fontawesome.com/73bd27aadc.js" crossorigin="anonymous"></script>
 
-  <title>Hill Cipher Playground</title>
+	<title>Hill Cipher Playground</title>
 </head>
 
 <body>
-  <div id="app">
-	<h2>Hill Ciphers</h2>
-	<div class="playground">
-		<div class="start">
-			<div class="cipher-setup">
-				<label>Key <input class="text-key"></label> <br />
-				<label>Size <input class="mat-size" type="number"></label>
+	<div id="app">
+		<div class="top">
+			<h2>Hill Ciphers</h2>
+			<div class="top-buttons">
+				<button class="info-button"><i class="fa-solid fa-info fa-canvas-square"></i></button>
+				<a class="new-window-button" href="playground" target="_blank"><i
+						class="fa-solid fa-arrow-up-right-from-square fa-canvas-square"></i></a>
 			</div>
-			<h3>Plaintext</h3>
-			<textarea class="plaintext"></textarea>
 		</div>
-		<div class="middle">
-			<h3>Encryption Matrix</h3>
-			<table class="matrix encrypt-mat"></table>
-			<h3>Decryption Matrix</h3>
-			<table class="matrix decrypt-mat"></table>
-		</div>
-		<div class="end">
-			<h3>Ciphertext</h3>
-			<textarea class="ciphertext"></textarea>
+		<div class="playground">
+			<div class="start">
+				<div class="inps">
+					<div class="cipher-setup">
+						<label>Key <input class="text-key"></label> <br />
+						<label>Size <input class="mat-size" type="number"></label>
+					</div>
+					<h3>Plaintext</h3>
+					<textarea class="plaintext" placeholder="Enter plain text here..."></textarea>
+					<select class="choose-s-mat">
+						<option value="26">mod 26 (a-z)</option>
+						<option value="31">mod 31 (a-z⎵.?!/)</option>
+						<option value="59">mod 59 (a-zA-Z⎵.?!/,')</option>
+					</select>
+				</div>
+				<div class="arrow-container"><i class="fa-solid fa-arrow-down fa-canvas-square"></i></div>
+				<div class="mat-status bad">
+					<span class="status-chex">
+						<i class="fa-solid fa-check fa-canvas-square"></i>
+						<i class="fa-solid fa-x fa-canvas-square"></i>
+					</span>
+					<span class="status-text">
+						<span class="not-ok">Key not valid (try different key or size)</span>
+						<span class="ok">Key valid!</span>
+					</span>
+				</div>
+			</div>
+			<div class="middle">
+				<h3>Encryption Matrix</h3>
+				<table class="matrix encrypt-mat"></table>
+				<h3>Decryption Matrix</h3>
+				<table class="matrix decrypt-mat"></table>
+			</div>
+			<div class="end">
+				<h3>Ciphertext</h3>
+				<textarea class="ciphertext" placeholder="Cipher text goes here..."></textarea>
 
-			<h3>Decrypted</h3>
-			<p class="decrypted"></p>
+				<h3>Decrypted</h3>
+				<p class="decrypted"></p>
+			</div>
 		</div>
 	</div>
-  </div>
-  
-  <script type="module" src="/src/hillplaygrond.ts"></script>
+
+	<dialog>
+		<div class="top">
+			<h2>How 2 Playground</h2><button><i class="fa-solid fa-x"></i></button>
+		</div>
+		<ol>
+			<li>Enter a key (any text)</li>
+			<li>Enter a size for the matrix (any positive #)</li>
+			<li>Choose a modulus to run with: this determines which set of letters you can use:</li>
+			<ul>
+				<li>26 for the lowercase alphabet</li>
+				<li>31 for all of 26, plus space, ?, !, /</li>
+				<li>59 for all of 31, plus the uppercase alphabet and comma and apostrophe</li>
+			</ul>
+			<li>Check if those produce a valid key combination (i.e. it is possible to construct a decryption matrix!)</li>
+			<li>Play with the plaintext <i>or</i> the ciphertext and watch everything change around them!</li>
+		</ol>
+
+		<div class="info-bottom">
+			<i>Part of my <a href="/" target="_blank">High School Linear Algebra final project</a></i>
+			<footer>
+				<span>(c) Om Mehta</span>
+				<a class="github" href="https://github.com/ommehta16/how2hill" target="_blank"><i class="fa-brands fa-github"></i></a>
+			</footer>
+		</div>
+	</dialog>
+
+	<script type="module" src="/src/hillplaygrond.ts"></script>
 </body>
 
 </html>

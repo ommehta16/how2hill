@@ -29,47 +29,16 @@ body {
 h2 {
 	margin:0;
 	margin-inline:1rem;
-	margin-bottom:12px;
 	font-size:1.5rem;
 	/* So total height is 1+1.5+1 = 3.5rem */
 	box-sizing: border-box;
 	padding:0;
 }
 
-input, button {
-  font-family: var(--font);
-  color: var(--text);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size:20px;
-}
-
-input.text-key {
-  background: var(--hover-bg);
-  display: inline;
-  min-width:1ch;
-  width:15ch;
-  padding:0.25rem;
-  border-radius:0.25rem;
-
-  text-overflow: ellipsis;
-}
-
-input {
-  border:1px solid transparent;
-  box-sizing: border-box;
-}
-
-input:hover {
-  border: 1px solid var(--text-light);
-}
-
 #app {
 	height:100svh;
 	width:100svw;
-	padding-top:1rem;
+	padding-top:0.5rem;
 	box-sizing: border-box;
 	overflow:hidden;
 }
@@ -85,6 +54,7 @@ div.playground {
 	height:calc(100svh - 3.5rem);
 	box-sizing: border-box;
   flex-basis: 33%;
+  overflow:scroll;
 }
 
 .end {
@@ -125,4 +95,260 @@ table.matrix td {
 
 textarea {
   font-family: var(--font);
+  resize:none;
+  width:100%;
+  border:none;
+  padding:0.5rem;
+  box-sizing: border-box;
+  font-family: var(--font);
+  color: var(--text);
+}
+
+input, button {
+  font-family: var(--font);
+  color: var(--text);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size:20px;
+}
+
+input {
+  display: inline;
+  min-width:1ch;
+  width:15ch;
+  padding:0.25rem;
+  border-radius:0.25rem;
+}
+
+input.text-key {
+  text-overflow: ellipsis;
+}
+
+input, textarea, select {
+  border:1px solid transparent;
+  box-sizing: border-box;
+  font-size: 1rem;
+  border-radius:0.25rem;
+}
+
+select {
+  padding:0.25rem;
+}
+
+textarea {
+  field-sizing: content;
+}
+
+input:hover, textarea:hover {
+  border: 1px solid var(--text-light);
+}
+
+.arrow-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size:2rem;
+  font-weight: 100;
+}
+
+.inps {
+  margin-bottom:1rem;
+}
+
+.mat-status i {
+  position: absolute;
+}
+
+.status-chex {
+  position:relative;
+  width:1rem;
+  height:1rem;
+  display: inline-block;
+}
+
+.mat-status.bad .status-text {
+  color:#822
+}
+
+.status-chex i.fa-check, .status-chex i.fa-x {
+  opacity:0;
+  transform: rotate(90deg);
+  transition: transform 250ms, opacity 250ms;
+}
+.status-chex i.fa-check {
+  transform: rotate(-90deg);
+}
+
+.status-chex i.fa-x {
+  color:#822;
+}
+
+.status-chex i.fa-check {
+  color:green;
+}
+
+.mat-status.bad .status-chex i.fa-x, .mat-status.good .status-chex i.fa-check {
+  opacity:1;
+  transform: rotate(0deg);
+}
+
+.mat-status.good .status-text {
+  color: green;
+}
+
+div.mat-status {
+  padding:1rem;
+  border:1px solid black;
+  margin-top:1rem;
+  box-sizing: border-box;
+  transition:background 250ms;
+  border-radius:0.25rem;
+}
+
+div.mat-status.good {
+  background:lightgreen;
+}
+
+div.mat-status.bad {
+  background:#faa;
+}
+
+div.mat-status.good span.not-ok, div.mat-status.bad span.ok {
+  display: none;
+}
+
+.start label {
+  display: flex;
+  flex-direction: row;
+  gap:0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.start label input {
+  width: 10ch;
+  flex-grow:1;
+}
+
+textarea::placeholder {
+  font-style: italic;
+  opacity: 40%;
+}
+
+div.top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-buttons button i, .top-buttons a i, dialog button i {
+  font-size:0.75rem;
+
+}
+
+.top-buttons button, .top-buttons a, dialog button {
+  box-sizing: border-box;
+  width:1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border:none;
+  background: white;
+  border-radius: 0.5rem;
+  border: 2px solid gray;
+  color:gray;
+  position: relative;
+  top:0px;
+  box-shadow: #909090 0 0.125rem 0;
+
+  &:hover {
+    background: #ddd;
+    cursor: pointer;
+  }
+
+  &:active {
+    top:0.125rem;
+    box-shadow: #909090 0 0rem 0;
+  }
+}
+
+dialog button {
+  width:2rem;
+  height: 2rem;
+}
+
+dialog button i {
+  font-size: 1rem;
+}
+
+.top-buttons {
+  padding:0.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  gap:0.5rem;
+  padding-inline-end:1rem;
+}
+
+body:not(.is-iframe) .top-buttons .new-window-button {
+  display: none;
+}
+
+dialog {
+  border:none;
+  max-width: min(calc(100vw - 4rem),80ch);
+  box-sizing: border-box;
+  padding:1rem;
+  border-radius: 1rem;
+  border: 2px solid gray;
+  background:#eee;
+}
+
+dialog::backdrop {
+  backdrop-filter: blur(2px);
+}
+
+dialog ol {
+  line-height: 1.5rem;
+}
+
+.info-bottom a {
+  color: var(--text-light);
+
+  &:hover {
+    color: var(--link-color);
+  }
+}
+
+.info-bottom {
+  padding-bottom: 4rem;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  position: absolute;
+  bottom:0;
+  left:0;
+  right: 0;
+  padding:1rem;
+  background:#c0c0c0;
+  height:2rem;
+
+  border-top:1px solid gray
+}
+
+footer a.github {
+  font-size: 1.5rem;
+}
+
+body.is-iframe .info-bottom {
+  display: none;
 }
